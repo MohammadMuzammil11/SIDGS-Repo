@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<AccessControl continueOnError="false" enabled="false" name="AC-accesscontrol" async="false">
+    <DisplayName>AC-accesscontrol</DisplayName>
+    <Properties/>
+    <IPRules noRuleMatchAction="DENY">
+        <MatchRule action="ALLOW">
+            <SourceAddress mask="32">10.226.255.25</SourceAddress>
+            <SourceAddress mask="32">10.226.255.26</SourceAddress>
+            <SourceAddress mask="32">10.226.255.27</SourceAddress>
+            <SourceAddress mask="32">10.226.255.28</SourceAddress>
+            <SourceAddress mask="32">10.226.255.29</SourceAddress>
+            <SourceAddress mask="32">10.226.255.30</SourceAddress>
+            <SourceAddress mask="32">10.226.255.21</SourceAddress>
+            <SourceAddress mask="32">10.226.255.22</SourceAddress>
+            <SourceAddress mask="32">10.226.255.23</SourceAddress>
+            <SourceAddress mask="32">10.226.255.24</SourceAddress>
+            <SourceAddress mask="32">10.226.255.37</SourceAddress>
+            <SourceAddress mask="32">10.226.255.38</SourceAddress>
+            <SourceAddress mask="32">10.226.255.39</SourceAddress>
+            <SourceAddress mask="32">10.226.255.40</SourceAddress>
+            <SourceAddress mask="32">10.226.255.41</SourceAddress>
+            <SourceAddress mask="32">10.226.255.42</SourceAddress>
+            <SourceAddress mask="32">10.226.255.43</SourceAddress>
+            <SourceAddress mask="32">10.225.255.21</SourceAddress>
+            <SourceAddress mask="32">10.225.255.22</SourceAddress>
+            <SourceAddress mask="32">10.225.255.23</SourceAddress>
+            <SourceAddress mask="32">10.225.255.26</SourceAddress>
+            <SourceAddress mask="32">10.225.255.27</SourceAddress>
+            <SourceAddress mask="32">10.225.255.28</SourceAddress>
+            <SourceAddress mask="32">10.225.255.24</SourceAddress>
+            <SourceAddress mask="32">10.225.255.25</SourceAddress>
+            <SourceAddress mask="32">10.225.255.29</SourceAddress>
+            <SourceAddress mask="32">10.225.255.30</SourceAddress>
+            <SourceAddress mask="32">10.225.255.36</SourceAddress>
+            <SourceAddress mask="32">10.225.255.37</SourceAddress>
+            <SourceAddress mask="32">10.225.255.38</SourceAddress>
+            <SourceAddress mask="32">10.225.255.39</SourceAddress>
+            <SourceAddress mask="32">10.225.255.40</SourceAddress>
+            <SourceAddress mask="32">10.225.255.41</SourceAddress>
+            <SourceAddress mask="32">10.225.255.42</SourceAddress>
+            <SourceAddress mask="32">10.225.255.43</SourceAddress>
+            <SourceAddress mask="32">10.225.255.44</SourceAddress>
+            <SourceAddress mask="32">10.225.255.45</SourceAddress>
+            <SourceAddress mask="32">10.225.255.46</SourceAddress>
+            <SourceAddress mask="32">10.225.255.47</SourceAddress>
+            <SourceAddress mask="32">49.205.225.23</SourceAddress>
+            <SourceAddress mask="32">115.98.34.76</SourceAddress>
+            <SourceAddress mask="32">49.205.224.114</SourceAddress>
+            <SourceAddress mask="32">10.226.180.21</SourceAddress>
+            <SourceAddress mask="32">10.226.180.22</SourceAddress>
+            <SourceAddress mask="32">10.226.180.23</SourceAddress>
+            <SourceAddress mask="32">10.226.180.24</SourceAddress>
+            <SourceAddress mask="32">10.226.180.25</SourceAddress>
+            <SourceAddress mask="32">10.226.180.26</SourceAddress>
+            <SourceAddress mask="32">10.226.180.27</SourceAddress>
+            <SourceAddress mask="32">10.226.180.28</SourceAddress>
+            <SourceAddress mask="32">10.226.180.29</SourceAddress>
+            <SourceAddress mask="32">10.226.180.30</SourceAddress>
+            <SourceAddress mask="32">10.226.180.31</SourceAddress>
+            <SourceAddress mask="32">172.16.5.91</SourceAddress>
+            <SourceAddress mask="32">172.21.16.84</SourceAddress>
+            <SourceAddress mask="32">103.19.91.9</SourceAddress>
+            <SourceAddress mask="32">183.82.121.225</SourceAddress>
+            <SourceAddress mask="32">15.206.49.186</SourceAddress>
+            <SourceAddress mask="32">65.1.152.62</SourceAddress>
+            <SourceAddress mask="32">15.206.197.81</SourceAddress>
+            <SourceAddress mask="32">65.0.148.121</SourceAddress>
+            <SourceAddress mask="32">65.0.190.148</SourceAddress>
+            <SourceAddress mask="32">65.0.88.14</SourceAddress>
+        </MatchRule>
+    </IPRules>
+</AccessControl>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OAuthV2 async="false" continueOnError="false" enabled="true" name="OAuthGenerateToken">
+    <!-- This policy generates an OAuth 2.0 access token using the client_credentials grant type -->
+    <Operation>GenerateAccessToken</Operation>
+    <!-- This is in millseconds, so expire in an hour -->
+    <ExpiresIn>3600000</ExpiresIn>
+    <!--<Scope>request.queryparam.app-scope</Scope>-->
+    <!--<Attributes>-->
+    <!--    <Attribute name="app-scope" ref="request.formparam.scope" display="false">oob</Attribute>-->
+    <!--</Attributes>-->
+    <SupportedGrantTypes>
+        <GrantType>client_credentials</GrantType>
+    </SupportedGrantTypes>
+    <GrantType>request.formparam.grant_type</GrantType>
+    <GenerateResponse enabled="true"/>
+    <GenerateErrorResponse enabled="true"/>
+</OAuthV2>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<MessageLogging continueOnError="false" enabled="false" name="ML-SIEM">
+    <DisplayName>ML-SIEM</DisplayName>
+    <Syslog>
+        <Host>10.1.31.172</Host>
+        <Message variablePrefix="%" variableSuffix="#">SystemTimeStampIST = %logCreatedTimeStamp# | ID_Token_Generation  :: | Environment.name = %environment.name# | Proxy.basepath = %proxy.basepath# | Proxy.pathsuffix = %proxy.pathsuffix# | apiproxyname = %apiproxy.name# | Apigee.apiproduct.name = %apigee.apiproduct.name# | Apigee.developer.app.name = %apigee.developer.app.name# | ClientIP = %IPAddress# | request:: AccessToken = %oauthv2accesstoken.OAuthGenerateToken.access_token# | response :: success = %isSuccess# | JWEToken = %jwtString# | RoutingStatusCode = %target.response.status.code# | BackendErrorMessage = %error.reason.phrase# | GatewayErrorCode = %apigw.code# | gatewayErrorMessage = %apigw.message# | client.received.start.timestamp = %client.received.start.timestamp# | client.sent.end.timestamp = %client.sent.end.timestamp# | target.sent.start.timestamp = %target.sent.start.timestamp# | target.received.end.timestamp = %target.received.end.timestamp#</Message>
+        <Port>514</Port>
+        <Protocal>TCP</Protocal>
+        <FormatMessage>true</FormatMessage>
+    </Syslog>
+</MessageLogging>

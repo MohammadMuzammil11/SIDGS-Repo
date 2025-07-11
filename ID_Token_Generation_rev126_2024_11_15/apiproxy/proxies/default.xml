@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ProxyEndpoint name="default">
+    <DefaultFaultRule name="fault-rule">
+        <Step>
+            <Name>RF-accessDenied</Name>
+            <Condition>(fault.name matches "IPDeniedAccess")</Condition>
+        </Step>
+        <Step>
+            <Name>RF-internalServerError</Name>
+            <Condition>(fault.name matches "ExecutionReturnedFailure")</Condition>
+        </Step>
+    </DefaultFaultRule>
+    <FaultRules>
+        <FaultRule name="bad-request">
+            <Step>
+                <Name>RF-badRequest</Name>
+            </Step>
+            <Condition>(fault.name matches "ScriptExecutionFailed") OR (javascript.JS-requestContent.failed = true) OR (javascript.JS-addOauthToken.failed = true) OR (javascript.JS-removeHeader.failed = true)</Condition>
+        </FaultRule>
+    </FaultRules>
+    <PreFlow name="PreFlow">
+        <Request>
+            <Step>
+                <Name>AM-setSuccessFlag</Name>
+            </Step>
+            <Step>
+                <Name>AC-accesscontrol</Name>
+            </Step>
+            <Step>
+                <Name>EV-extractPayload</Name>
+                <Condition>(request.content != null)</Condition>
+            </Step>
+            <Step>
+                <Name>JS-requestContent</Name>
+            </Step>
+            <Step>
+                <Name>RF-badRequest</Name>
+                <Condition>(validFor = "")</Condition>
+            </Step>
+        </Request>
+        <Response/>
+    </PreFlow>
+    <Flows>
+        <Flow name="ID_Token_Generation ">
+            <Description/>
+            <Request>
+                <Step>
+                    <Condition>(isValidScope is true)</Condition>
+                    <Name>AM-defaultClientCredentials</Name>
+                </Step>
+                <Step>
+                    <Condition>(isValidScope is true)</Condition>
+                    <Name>BA-authentication</Name>
+                </Step>
+                <Step>
+                    <Condition>(isValidScope is true)</Condition>
+                    <Name>OAuthGenerateToken</Name>
+                </Step>
+            </Request>
+            <Response>
+                <Step>
+                    <Condition>(isValidScope is true)</Condition>
+                    <Name>JS-addOauthToken</Name>
+                </Step>
+                <Step>
+                    <Name>AM-publicAndprivatekey</Name>
+                </Step>
+                <Step>
+                    <Name>java-tokenGeneration</Name>
+                </Step>
+                <Step>
+                    <Name>java-jweTokenGeneration</Name>
+                </Step>
+                <Step>
+                    <Name>JS-removeHeader</Name>
+                </Step>
+                <Step>
+                    <Name>AM-setPayloadResponse</Name>
+                </Step>
+            </Response>
+            <Condition>((proxy.pathsuffix MatchesPath "") or (proxy.pathsuffix MatchesPath "/")) and (request.verb = "POST")</Condition>
+        </Flow>
+        <Flow name="ID_Token_Generation ">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>RF-faultResponseMethodNotAllowed</Name>
+                </Step>
+            </Request>
+            <Response/>
+            <Condition>(proxy.pathsuffix MatchesPath "") or (proxy.pathsuffix MatchesPath "/")</Condition>
+        </Flow>
+        <Flow name="Fallback">
+            <Description/>
+            <Request>
+                <Step>
+                    <Name>RF-faultResponseNotFound</Name>
+                </Step>
+            </Request>
+            <Response/>
+        </Flow>
+    </Flows>
+    <PostFlow name="PostFlow">
+        <Request/>
+        <Response/>
+    </PostFlow>
+    <PostClientFlow>
+        <Response>
+            <Step>
+                <Name>ML-setMessageLogging</Name>
+            </Step>
+            <Step>
+                <Name>ML-SIEM</Name>
+            </Step>
+        </Response>
+    </PostClientFlow>
+    <HTTPProxyConnection>
+        <BasePath>/API/Get_IDToken</BasePath>
+    </HTTPProxyConnection>
+    <RouteRule name="noroute"/>
+</ProxyEndpoint>

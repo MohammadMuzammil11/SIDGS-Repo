@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ExtractVariables continueOnError="false" enabled="true" name="EV-extractPayload">
+    <DisplayName>EV-extractPayload</DisplayName>
+    <Properties/>
+    <IgnoreUnresolvedVariables>true</IgnoreUnresolvedVariables>
+    <JSONPayload>
+        <Variable name="validFor">
+            <JSONPath>$.reqHeader.validFor</JSONPath>
+        </Variable>
+        <Variable name="tokenType">
+            <JSONPath>$.reqHeader.tokenType</JSONPath>
+        </Variable>
+        <Variable name="clientId">
+            <JSONPath>$.reqHeader.client-id</JSONPath>
+        </Variable>
+        <Variable name="client-secret">
+            <JSONPath>$.reqHeader.client-secret</JSONPath>
+        </Variable>
+    </JSONPayload>
+    <Source clearPayload="false">request</Source>
+</ExtractVariables>

@@ -1,0 +1,511 @@
+openapi: 3.0.0
+info:
+  title: Fetch Whatsapp Permissions
+  version: 1.0.0
+servers:
+  - url: https://dev-imbl-dmz.icicibank.com/dashboard/relationship
+  - url: https://sit-imbl-dmz.icicibank.com/dashboard/relationship
+  - url: https://uat-imbl-dmz.icicibank.com/dashboard/relationship
+ 
+paths:
+  /relationship-profile-whatsapppermission-get:
+    post:
+      summary: Fetch Deposite Balance
+     
+      parameters:
+        - name: x-apikey
+          in: header
+          schema:
+            type: string
+          example: t19ertyuiufdfghjr67trftyujn
+          required: true
+        - name: userID
+          in: header
+          schema:
+            type: string
+          example: XYZ123
+          required: true
+        - name: userID_Type
+          in: header
+          schema:
+            type: string
+          example: USERNAME
+          required: true
+        - name: orgID
+          in: header
+          schema:
+            type: string
+          example: ici.543267896.543267896
+          required: true
+        - name: trcID
+          in: header
+          schema:
+            type: string
+          example: user1-20230214165514-1
+          required: true
+        - name: version
+          in: header
+          schema:
+            type: string
+          example: 10.0.0.1
+          required: true
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+          example: FT42
+          required: true
+        - name: device-id
+          in: header
+          schema:
+            type: string
+          example: E94D25A9-6662-4F1C-9052-1CC9CEAD1FA4
+          required: true
+        - name: Mobilenumber
+          in: header
+          schema:
+            type: string
+          example: '9999912345'
+          required: true
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+          required: true
+ 
+      requestBody:
+        description: fetch the status of customer details in database
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                body:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    mobNo:
+                      type: string
+                      pattern: "^[0-9]{10}$"
+                  required:
+                    - mobNo
+                head:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    requestDtTm:
+                      description: Timestamp when request is invoked YYYY-MM-DD HH:mm:SS.SSS
+                      type: string
+                      pattern: "^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9]) (0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])\\.([0-9]{3})$"
+                  required:
+                  - requestDtTm
+              required:
+              - head
+              - body
+            example:
+              head:
+                requestDtTm: 2019-12-20 14:55:28.555
+              body:
+                mobNo: "1234567890"
+ 
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  head:
+                    type: object
+                    additionalProperties: false
+                    properties:
+                      trcID:
+                        type: string
+                        description: Unique Trace ID
+                      statusCd:
+                        type: integer
+                        description: Status code
+                      responseDtTm:
+                        type: string
+                        description: Response timestamp
+                        pattern: "^[0-9]{4}-(1[0-2]|0[1-9])-(3[01]|[12][0-9]|0[1-9]) (0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])\\.([0-9]{3})$"
+                      sysMsgs:
+                        type: array
+                        description: System messages
+                        items:
+                          type: string
+                      msgCds:
+                        type: array
+                        description: Message codes
+                        items:
+                          type: string
+                      validationErrors:
+                        type: object
+                        description: Validation Error when input validation failed
+                      statusDtls:
+                        type: array
+                        description: Individual statusCd of Inner MWServices
+                        items:
+                          type: array
+                          items:
+                            type: string
+                    required:
+                    - trcID
+                    - statusCd
+                    - responseDtTm
+                  body:
+                    type: object
+                    properties:
+                      RtnData:
+                        type: object
+                        properties:
+                          mobNo:
+                            type: string
+                            description: Mobile Number
+                          whtappTc:
+                            type: string
+                            description: Whatsapp Terms and Conditions
+                          whtappAlert:
+                            type: string
+                            description: Whatsapp alerts
+                          chl:
+                            type: string
+                            description: channel
+                          enteredDt:
+                            type: string
+                            description: Entered Date
+                          modifiedDt:
+                            type: string
+                            description: Modified Date
+                        required:
+                          - mobNo
+                          - whtappTc
+                          - whtappAlert
+                          - chl
+                          - enteredDt
+                          - modifiedDt
+                      sttsCd:
+                        type: string
+                      stts:
+                        type: string
+                      rtnMsg:
+                        type: string
+                      tknNo:
+                        type: string
+                    required:
+                      - rtnData
+                      - sttsCd
+                      - stts
+                      - rtnMsg
+                      - tknNo
+                required:
+                - body
+                - head
+      
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                fieldMissing:
+                  summary: >-
+                    If any mandatory field is missing in the body getting the
+                    below error message
+                  value:
+                    errorCode: '400'
+                    errorMessage: requestDtTm is missing
+                    errorReason: Bad Request
+                invalidPattern:
+                  summary: If the field has invalid pattern
+                  value:
+                    errorCode: '400'
+                    errorMessage: Invalid requestDtTm formate
+                    errorReason: Bad Request
+                encryptionMandatory:
+                  summary: encryptionMandatory
+                  value:
+                    errorCode: '400'
+                    errorMessage: Plain request recieve while encryption is mandatory
+        '401':
+          description: Unauthorized error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                invalidApiKey:
+                  summary: Invalid API Key
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '1'
+                    errorMessage: Invalid Api Key
+                apiKeyNotFound:
+                  summary: Api Key Not Found
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '1'
+                    errorMessage: Api Key Not Found
+                trcIdNotFound:
+                  summary: TrcId Not found
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '3'
+                    errorMessage: TrcId Not found
+                versionNotFound:
+                  summary: Version not found
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '4'
+                    errorMessage: Version not found
+                userIdTypeNotFound:
+                  summary: UserId Type not Found
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '6'
+                    errorMessage: UserId Type not Found
+                authorizationNotFound:
+                  summary: Token Not found
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '5'
+                    errorMessage: Token Not found
+                invalidToken:
+                  summary: Invalid Token
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '2'
+                    errorMessage: Invalid Token
+                orgIDNotFound:
+                  summary: UserId is MissMatching
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '6'
+                    errorMessage: UserId is MissMatching
+                mobileNumberNotFound:
+                  summary: Mobile Number Not Found
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '6'
+                    errorMessage: 'Mobile Number Not Found  '
+                mobileNumberMissMatching:
+                  summary: Mobile Number MissMatching
+                  value:
+                    errorCode: '401'
+                    errorSubCode: '6'
+                    errorMessage: Mobile Number is MissMatching
+                invalidDeviceId:
+                  summary: Invalid device-id
+                  value:
+                    errorCode: '401'
+                    errorMessage: Please provide a valid deviceId
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                userIDNotFound:
+                  summary: UnresolvedVariable
+                  value:
+                    errorCode: '403'
+                    errorSubCode: '2'
+                    errorMessage: Access Denied
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                NotFound:
+                  summary: Not found
+                  value:
+                    errorCode: '404'
+                    errorMessage: Not Found
+        '405':
+          description: Method not allowed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                Method not allowed:
+                  summary: Method not allowed
+                  value:
+                    errorCode: '405'
+                    errorSubCode: '1'
+                    errorMessage: Method not allowed
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                IdTokenExpired:
+                  summary: IdTokenExpired
+                  value:
+                    errorCode: '412'
+                    errorSubCode: '412'
+                    errorMessage: Token Expired
+        '415':
+          description: Unsupported Media Type
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                invalidContentType:
+                  summary: Invalid Content Type
+                  value:
+                    errorCode: '415'
+                    errorSubCode: '415'
+                    errorMessage: Unsupported Media Type
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                CodeInjectionDetected:
+                  summary: CodeInjectionDetected
+                  value:
+                    errorCode: '422'
+                    errorSubCode: '1'
+                    errorMessage: Invalid API Request
+                SqlInjectionDetected:
+                  summary: SqlInjectionDetected
+                  value:
+                    errorCode: '422'
+                    errorSubCode: '2'
+                    errorMessage: Invalid API Request
+        '429':
+          description: Too Many Requests
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                SpikeArrestViolation:
+                  summary: SpikeArrestViolation
+                  value:
+                    errorCode: '429'
+                    errorSubCode: '429'
+                    errorMessage: DDOS Attack Detected from Requestor
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                InterServerError:
+                  summary: InterServerError
+                  value:
+                    errorCode: '500'
+                    errorSubCode: '1'
+                    errorMessage: Backend Service Provided Unexpected Response
+                introspectionFailure:
+                  summary: introspectionFailure
+                  value:
+                    errorCode: '500'
+                    errorSubCode: '2'
+                    errorMessage: FT42 service is down
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                ServiceUnavailable:
+                  summary: ServiceUnavailable
+                  value:
+                    errorCode: '503'
+                    errorSubCode: '503'
+                    errorMessage: The Service is temporarily unavailable
+        '504':
+          description: Bad Gateway Timeout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+              examples:
+                BadGatewayTimeout:
+                  summary: BadGatewayTimeout
+                  value:
+                    errorCode: '504'
+                    errorSubCode: '504'
+                    errorMessage: Service is down or bad gateway Timeout
+        
+             
+               
+ 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<JavaCallout continueOnError="false" enabled="true" name="java-jweTokenGeneration">
+    <DisplayName>java-jweTokenGeneration</DisplayName>
+    <Properties/>
+    <ClassName>com.edge.tokengen.TokenGeneration</ClassName>
+    <ResourceURL>java://JWETokenGeneration-0.0.1-SNAPSHOT.jar</ResourceURL>
+</JavaCallout>
